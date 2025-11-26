@@ -1,0 +1,26 @@
+{
+	"id": "dhdecp",
+	"name": "dhdecp",
+	"shortname": "DHD ECP",
+	"description": "Control DHD Audio mixing consoles via ECP protocol",
+	"version": "0.1.0",
+	"license": "MIT",
+	"repository": "git+https://github.com/daniellippens/companion-module-dhdecp.git",
+	"bugs": "https://github.com/daniellippens/companion-module-dhdecp/issues",
+	"maintainers": [
+		{
+			"name": "Daniel Lippens",
+			"email": "daniellippens@gmail.com"
+		}
+	],
+	"runtime": {
+		"type": "node22",
+		"api": "nodejs-ipc",
+		"apiVersion": "1.0.0",
+		"entrypoint": "../dist/main.js"
+	},
+	"legacyIds": [],
+	"manufacturer": "DHD Audio",
+	"products": ["ECP"],
+	"keywords": ["audio", "mixer", "console", "broadcast", "ecp"]
+}

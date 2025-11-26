@@ -1,0 +1,14 @@
+node_modules/
+package-lock.json
+/pkg
+/*.tgz
+/dist
+DEBUG-*
+/.yarn
+/.vscode
+
+# DHD Configuration Files (may contain sensitive project data)
+Export.dpx
+*.dpx
+*.dpc
+
