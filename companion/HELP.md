@@ -45,7 +45,7 @@ Logic addresses are dynamic and configured in your DHD Toolbox project. Valid ra
 - Use this decimal value as the Logic ID
 
 **Online Parser Tool:**
-Use the [DHD Export.dpx Parser](https://daniellippens.github.io/companion-module-dhdecp/parser.html) to automatically extract and convert all Logic IDs from your Export.dpx file.
+Use the [DHD Export.dpx Parser](https://daniellippens.github.io/companion-module-dhdaudio-ecp/parser.html) to automatically extract and convert all Logic IDs from your Export.dpx file.
 
 ### Using Pulse Mode
 
