@@ -238,6 +238,14 @@
 				background: #fef7ff;
 			}
 
+			.logic-table tbody tr.duplicate-row {
+				background: #fff5f5;
+			}
+
+			.logic-table tbody tr.duplicate-row:hover {
+				background: #fee;
+			}
+
 			.hex-value {
 				font-family: 'Courier New', monospace;
 				color: #999;
@@ -482,11 +490,27 @@
 					return
 				}
 
+				// Detect duplicate Companion IDs
+				const idCounts = {}
+				allLogics.forEach((logic) => {
+					idCounts[logic.decimalId] = (idCounts[logic.decimalId] || 0) + 1
+				})
+				const duplicateIds = new Set(
+					Object.entries(idCounts)
+						.filter(([id, count]) => count > 1)
+						.map(([id]) => parseInt(id))
+				)
+
+				// Mark duplicates
+				allLogics.forEach((logic) => {
+					logic.isDuplicate = duplicateIds.has(logic.decimalId)
+				})
+
 				// Show results section
 				document.getElementById('results').classList.add('show')
 
 				// Update stats
-				updateStats()
+				updateStats(duplicateIds.size)
 
 				// Create filter buttons
 				createFilterButtons()
@@ -499,7 +523,7 @@
 				document.getElementById('searchBox').addEventListener('input', applyFilters)
 			}
 
-			function updateStats() {
+			function updateStats(duplicateCount = 0) {
 				const types = {}
 				const sections = {}
 
@@ -508,7 +532,7 @@
 					sections[logic.section] = (sections[logic.section] || 0) + 1
 				})
 
-				const statsHtml = `
+				let statsHtml = `
                 <div class="stat-card">
                     <div class="stat-number">${allLogics.length}</div>
                     <div class="stat-label">Total Logic IDs</div>
@@ -530,6 +554,15 @@
                     <div class="stat-label">Max ID</div>
                 </div>
             `
+
+				if (duplicateCount > 0) {
+					statsHtml += `
+                <div class="stat-card" style="background: linear-gradient(135deg, #dc2626 0%, #f97316 100%);">
+                    <div class="stat-number">${duplicateCount}</div>
+                    <div class="stat-label">⚠️ Duplicate IDs</div>
+                </div>
+            `
+				}
 
 				document.getElementById('stats').innerHTML = statsHtml
 			}
@@ -609,8 +642,8 @@
 				const html = sorted
 					.map(
 						(logic) => `
-                <tr>
-                    <td><span class="decimal-value">${logic.decimalId}</span></td>
+                <tr class="${logic.isDuplicate ? 'duplicate-row' : ''}">
+                    <td><span class="decimal-value">${logic.decimalId}${logic.isDuplicate ? ' ⚠️' : ''}</span></td>
                     <td><span class="hex-value">${logic.hexAddress}</span></td>
                     <td><span class="logic-name">${logic.name}</span></td>
                     <td>${logic.type ? `<span class="logic-type">${logic.type}</span>` : '-'}</td>
