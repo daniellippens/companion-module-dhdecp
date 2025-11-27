@@ -12,3 +12,6 @@ Export.dpx
 *.dpx
 *.dpc
 
+# Local files (not for repo)
+/release
+

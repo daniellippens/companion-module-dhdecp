@@ -1,4 +1,4 @@
-# companion-module-dhdecp
+# companion-module-dhdaudio-ecp
 
 Bitfocus Companion module for DHD Audio mixing consoles using the ECP (External Control Protocol).
 
@@ -62,7 +62,7 @@ DHD Export.dpx files use 32-bit hex addresses (e.g., `0x400002cf`). To use them 
 2. Convert to decimal: `719`
 3. Use this decimal value as the Logic ID in Companion
 
-Use the [online DHD Export.dpx Parser](https://daniellippens.github.io/companion-module-dhdecp/parser.html) to automatically extract and convert all Logic IDs from your Export.dpx file.
+Use the [online DHD Export.dpx Parser](https://daniellippens.github.io/companion-module-dhdaudio-ecp/parser.html) to automatically extract and convert all Logic IDs from your Export.dpx file.
 
 ## Documentation
 

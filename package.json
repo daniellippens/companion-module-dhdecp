@@ -1,5 +1,5 @@
 {
-	"name": "companion-module-dhdecp",
+	"name": "companion-module-dhdaudio-ecp",
 	"version": "0.1.0",
 	"main": "dist/main.js",
 	"type": "module",
@@ -16,7 +16,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/daniellippens/companion-module-dhdecp.git"
+		"url": "git+https://github.com/daniellippens/companion-module-dhdaudio-ecp.git"
 	},
 	"engines": {
 		"node": "^22.20",
