@@ -13,7 +13,7 @@
 
 			body {
 				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
 				min-height: 100vh;
 				padding: 20px;
 			}
@@ -44,7 +44,7 @@
 			}
 
 			.upload-area {
-				border: 3px dashed #667eea;
+				border: 3px dashed #833ab4;
 				border-radius: 8px;
 				padding: 40px;
 				text-align: center;
@@ -54,13 +54,13 @@
 			}
 
 			.upload-area:hover {
-				border-color: #764ba2;
-				background: #f0f2ff;
+				border-color: #fd1d1d;
+				background: #fff5f5;
 			}
 
 			.upload-area.dragover {
-				border-color: #764ba2;
-				background: #e8ebff;
+				border-color: #fcb045;
+				background: #fff8f0;
 				transform: scale(1.02);
 			}
 
@@ -74,7 +74,7 @@
 			}
 
 			.btn {
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
 				color: white;
 				border: none;
 				padding: 12px 30px;
@@ -87,7 +87,7 @@
 
 			.btn:hover {
 				transform: translateY(-2px);
-				box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+				box-shadow: 0 5px 15px rgba(131, 58, 180, 0.4);
 			}
 
 			.results {
@@ -110,7 +110,7 @@
 			}
 
 			.stat-card {
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
 				color: white;
 				padding: 20px;
 				border-radius: 8px;
@@ -148,7 +148,7 @@
 
 			.search-box:focus {
 				outline: none;
-				border-color: #667eea;
+				border-color: #833ab4;
 			}
 
 			.filter-group {
@@ -159,9 +159,9 @@
 
 			.filter-btn {
 				padding: 8px 16px;
-				border: 2px solid #667eea;
+				border: 2px solid #833ab4;
 				background: white;
-				color: #667eea;
+				color: #833ab4;
 				border-radius: 6px;
 				cursor: pointer;
 				transition: all 0.3s ease;
@@ -169,8 +169,9 @@
 			}
 
 			.filter-btn.active {
-				background: #667eea;
+				background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 100%);
 				color: white;
+				border-color: #833ab4;
 			}
 
 			.export-btn {
@@ -195,7 +196,7 @@
 			}
 
 			.logic-table thead {
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
 				color: white;
 			}
 
@@ -214,20 +215,25 @@
 			}
 
 			.logic-table tbody tr:hover {
-				background: #f8f9ff;
+				background: #fef7ff;
 			}
 
 			.hex-value {
 				font-family: 'Courier New', monospace;
-				color: #667eea;
-				font-weight: 600;
+				color: #999;
+				font-weight: 400;
+				font-size: 0.9em;
 			}
 
 			.decimal-value {
 				font-family: 'Courier New', monospace;
-				color: #10b981;
+				color: #fd1d1d;
 				font-weight: 700;
-				font-size: 1.1em;
+				font-size: 1.2em;
+				background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
 			}
 
 			.logic-name {
@@ -240,8 +246,8 @@
 				border-radius: 4px;
 				font-size: 0.85em;
 				font-weight: 600;
-				background: #e0e7ff;
-				color: #667eea;
+				background: #f3e8ff;
+				color: #833ab4;
 			}
 
 			.section-badge {
@@ -249,8 +255,8 @@
 				padding: 4px 10px;
 				border-radius: 4px;
 				font-size: 0.85em;
-				background: #fef3c7;
-				color: #92400e;
+				background: #fff4e6;
+				color: #c47a10;
 			}
 
 			.no-results {
@@ -318,6 +324,7 @@
 
 			<div class="results" id="results">
 				<h2 style="margin-bottom: 20px; color: #333">📊 Parsed Logic IDs</h2>
+				<p style="margin-bottom: 20px; color: #666; font-size: 0.95em;">💡 <strong>Tip:</strong> Use the <span style="background: linear-gradient(135deg, #833ab4, #fd1d1d); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">Companion ID</span> column value when configuring logic actions in your Companion module.</p>
 
 				<div class="stats" id="stats"></div>
 
@@ -333,7 +340,7 @@
 					<table class="logic-table">
 						<thead>
 							<tr>
-								<th>Decimal ID</th>
+								<th>Companion ID ✨</th>
 								<th>Hex Address</th>
 								<th>Logic Name</th>
 								<th>Type</th>
@@ -503,7 +510,10 @@
 			}
 
 			function createFilterButtons() {
-				const types = [...new Set(allLogics.map((l) => l.type))].filter((t) => t !== '').sort()
+				// Filter out hex values and empty types - only show human-readable categories
+				const types = [...new Set(allLogics.map((l) => l.type))]
+					.filter((t) => t !== '' && !t.startsWith('0x') && !/^[0-9a-fA-F]+$/.test(t))
+					.sort()
 
 				const filterHtml = types
 					.map(
@@ -595,7 +605,7 @@
 				}
 
 				// Create CSV content
-				const headers = ['Decimal ID', 'Hex Address', 'Logic Name', 'Type', 'Section']
+				const headers = ['Companion ID', 'Hex Address', 'Logic Name', 'Type', 'Section']
 				const rows = filteredLogics.map((logic) => [
 					logic.decimalId,
 					logic.hexAddress,
