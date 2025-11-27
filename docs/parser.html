@@ -360,7 +360,20 @@
 
 			<div class="results" id="results">
 				<h2 style="margin-bottom: 20px; color: #333">📊 Parsed Logic IDs</h2>
-				<p style="margin-bottom: 20px; color: #666; font-size: 0.95em;">💡 <strong>Tip:</strong> Use the <span style="background: linear-gradient(135deg, #833ab4, #fd1d1d); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">Companion ID</span> column value when configuring logic actions in your Companion module.</p>
+				<p style="margin-bottom: 20px; color: #666; font-size: 0.95em">
+					💡 <strong>Tip:</strong> Use the
+					<span
+						style="
+							background: linear-gradient(135deg, #833ab4, #fd1d1d);
+							-webkit-background-clip: text;
+							background-clip: text;
+							-webkit-text-fill-color: transparent;
+							font-weight: bold;
+						"
+						>Companion ID</span
+					>
+					column value when configuring logic actions in your Companion module.
+				</p>
 
 				<div class="stats" id="stats"></div>
 
@@ -506,7 +519,7 @@
 				const duplicateIds = new Set(
 					Object.entries(idCounts)
 						.filter(([id, count]) => count > 1)
-						.map(([id]) => parseInt(id))
+						.map(([id]) => parseInt(id)),
 				)
 
 				// Mark duplicates and usability
@@ -652,12 +665,11 @@
 				const sorted = [...filteredLogics].sort((a, b) => a.decimalId - b.decimalId)
 
 				const html = sorted
-					.map(
-						(logic) => {
-							const classes = []
-							if (logic.isDuplicate) classes.push('duplicate-row')
-							if (!logic.isUsable) classes.push('unusable-row')
-							return `
+					.map((logic) => {
+						const classes = []
+						if (logic.isDuplicate) classes.push('duplicate-row')
+						if (!logic.isUsable) classes.push('unusable-row')
+						return `
                 <tr class="${classes.join(' ')}">
                     <td><span class="decimal-value">${logic.decimalId}${logic.isDuplicate ? ' ⚠️' : ''}</span></td>
                     <td><span class="hex-value">${logic.hexAddress}</span></td>
@@ -666,8 +678,7 @@
                     <td><span class="section-badge">${logic.section}</span></td>
                 </tr>
             `
-						},
-					)
+					})
 					.join('')
 
 				tbody.innerHTML = html

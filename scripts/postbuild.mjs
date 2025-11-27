@@ -2,8 +2,7 @@
  * Post-build script to add @companion-module/base/package.json to the package
  * This is required for Companion to verify the API version
  */
-import { mkdirSync, copyFileSync, existsSync } from 'fs'
-import { dirname } from 'path'
+import { mkdirSync, copyFileSync } from 'fs'
 
 const targetDir = 'pkg/node_modules/@companion-module/base'
 const sourceFile = 'node_modules/@companion-module/base/package.json'

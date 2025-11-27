@@ -21,6 +21,6 @@
 	},
 	"legacyIds": [],
 	"manufacturer": "DHD Audio",
-	"products": ["ECP"],
+	"products": ["Series 52", "RM4200D", "XD2", "XC2", "SX2"],
 	"keywords": ["audio", "mixer", "console", "broadcast", "ecp"]
 }

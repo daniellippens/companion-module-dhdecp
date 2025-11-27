@@ -111,13 +111,23 @@ export class ECPConnection {
 		const length = block[0]
 		const id = (block[2] << 24) | (block[3] << 16) | (block[4] << 8) | block[5]
 
+		// Log all incoming data for debugging
+		this.instance.log(
+			'debug',
+			`ECP RX: ID=0x${id.toString(16).padStart(8, '0')}, Len=${length}, Data=[${Array.from(
+				block.subarray(6, 6 + Math.min(length, 8)),
+			)
+				.map((b) => '0x' + b.toString(16).padStart(2, '0'))
+				.join(', ')}]`,
+		)
+
 		// Check if this is a logic state response (0x110E0000)
 		if (id === 0x110e0000 && length >= 3) {
 			const logicId = (block[6] << 8) | block[7]
 			const state = block[8] !== 0
 
 			this.logicStates.set(logicId, state)
-			this.instance.log('debug', `Logic ${logicId} state: ${state}`)
+			this.instance.log('info', `Logic ${logicId} state updated: ${state ? 'ON' : 'OFF'}`)
 
 			// Trigger feedback updates
 			this.instance.checkFeedbacks('logic_state')
